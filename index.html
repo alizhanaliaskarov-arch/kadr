@@ -700,6 +700,8 @@
   .lesson-card p{font-size:14.5px; margin:0; color:#d5dbd1;}
   .lc-chips{display:flex; flex-wrap:wrap; gap:8px;}
   .lc-chip{display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:#e3e8df; background:rgba(255,255,255,.07); border-radius:20px; padding:4px 10px;}
+  .teacher-review{color:#f4d98d; border:1px solid rgba(244,217,141,.42);}
+  .lesson-review{margin:4px 0 10px; color:var(--gold-deep); font-size:13.5px; font-weight:650; line-height:1.4;}
   .lc-chip svg{opacity:.85;}
   .lc-result{margin-top:auto; border-top:1px dashed var(--line); padding-top:12px; display:flex; align-items:center; gap:10px; font-size:14px; font-weight:600;}
   .lc-result .lr-bar{flex:1; height:6px; background:rgba(255,255,255,.12); border-radius:6px; overflow:hidden;}
@@ -1023,7 +1025,7 @@
         <a class="frame" href="#" data-target="lessons"><span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h5v-5h5v-5h5V5h3"/></svg></span><span class="txt"><b>Lessons by level</b>from A1 to C2, focused on grammar and real-life speech</span><span class="arrow" aria-hidden="true">&rarr;</span></a>
         <a class="frame" href="#" data-target="clubs"><span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span><span class="txt"><b>Clubs</b>we watch movies, read stories and debate &mdash; in English</span><span class="arrow" aria-hidden="true">&rarr;</span></a>
         <a class="frame" href="#" data-target="books"><span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/></svg></span><span class="txt"><b>English for IT textbooks</b>Grades 9 and 10: 192 lessons with exercises and teaching methodology</span><span class="arrow" aria-hidden="true">&rarr;</span></a>
-        <a class="frame" href="#" data-target="test"><span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></span><span class="txt"><b>English level test</b>12 questions and an approximate result on the CEFR scale</span><span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="frame" href="#" data-target="test"><span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></span><span class="txt"><b>English level test</b>Up to 12 questions and an approximate result on the CEFR scale</span><span class="arrow" aria-hidden="true">&rarr;</span></a>
       </div>
     </div>
   </div>
@@ -1175,7 +1177,7 @@
   <div class="wrap sec-head">
     <div class="kicker">Test</div>
     <h2>What is your English level?</h2>
-    <p>12 questions on grammar, vocabulary, reading and listening. At the end you get an approximate CEFR level, a breakdown by skill and a selection of lessons.</p>
+    <p id="testIntro">12 questions on grammar, vocabulary, reading and listening. At the end you get an approximate CEFR level, a breakdown by skill and a selection of lessons.</p>
   </div>
   <div class="wrap">
     <div class="test-wrap" id="testWrap"></div>
@@ -1257,6 +1259,36 @@ try{ const sv = localStorage.getItem('kadr_lang'); if(sv==='ru' || sv==='uz' || 
 const nrm = x => String(x).replace(/[\u2019\u2018]/g,"'").replace(/[\u201c\u201d]/g,'"').replace(/\s+/g,' ').trim();
 const DICT = {ru:{}, uz:{}};
 I18N_DATA.d.forEach(r=>{ DICT.ru[nrm(r[0])] = r[1]; DICT.uz[nrm(r[0])] = r[2]; });
+// Added accessibility notices for cases where browser speech playback is unavailable.
+DICT.ru['Transcript reading (audio unavailable)'] = 'Чтение расшифровки (аудио недоступно)';
+DICT.uz['Transcript reading (audio unavailable)'] = 'Transkriptni o‘qish (audio mavjud emas)';
+DICT.ru['There were too few scored answers, so the estimate is not reliable and is shown at the minimum. Answer at least three questions in English and try again.'] = 'В зачёт попало слишком мало ответов, поэтому оценка ненадёжна и показана на минимальном уровне. Ответьте по-английски минимум на три вопроса и попробуйте ещё раз.';
+DICT.uz['There were too few scored answers, so the estimate is not reliable and is shown at the minimum. Answer at least three questions in English and try again.'] = 'Hisoblangan javoblar juda kam, shuning uchun baho ishonchli emas va minimal darajada ko‘rsatilgan. Ingliz tilida kamida uchta savolga javob bering va qayta urinib ko‘ring.';
+DICT.ru['Needs teacher review'] = 'Нужна проверка преподавателем';
+DICT.uz['Needs teacher review'] = 'O‘qituvchi tekshiruvi kerak';
+DICT.ru['Transcript (reading practice)'] = 'Расшифровка (упражнение на чтение)';
+DICT.uz['Transcript (reading practice)'] = 'Transkript (o‘qish mashqi)';
+DICT.ru['No English speech voice is available in this browser, so listening questions are omitted and do not affect your score.'] = 'В этом браузере нет английского синтеза речи, поэтому вопросы на аудирование пропущены и не влияют на результат.';
+DICT.uz['No English speech voice is available in this browser, so listening questions are omitted and do not affect your score.'] = 'Bu brauzerda inglizcha nutq ovozi mavjud emas. Shu sababli tinglab tushunish savollari kiritilmaydi va natijaga ta’sir qilmaydi.';
+DICT.ru['9 short questions, about 5 minutes: grammar, vocabulary, reading. At the end you get an approximate CEFR level, a breakdown by skill and a selection of lessons.'] = '9 коротких вопросов, около 5 минут: грамматика, лексика и чтение. В конце вы получите примерный уровень CEFR, результаты по навыкам и подборку уроков.';
+DICT.uz['9 short questions, about 5 minutes: grammar, vocabulary, reading. At the end you get an approximate CEFR level, a breakdown by skill and a selection of lessons.'] = 'Taxminan 5 daqiqada 9 ta savol: grammatika, lug‘at va o‘qish. Yakunda taxminiy CEFR darajasi, ko‘nikmalar bo‘yicha natija va darslar tavsiyasi beriladi.';
+DICT.ru['This estimate comes from 9 multiple-choice questions on grammar, vocabulary, reading. It does not test speaking or writing, and a short test can be off by a level or more, so treat it as a starting point and not as a certificate.'] = 'Эта оценка основана на 9 вопросах с выбором ответа по грамматике, лексике и чтению. Тест не проверяет говорение и письмо и может ошибаться на уровень или более. Считайте результат отправной точкой, а не сертификатом.';
+DICT.uz['This estimate comes from 9 multiple-choice questions on grammar, vocabulary, reading. It does not test speaking or writing, and a short test can be off by a level or more, so treat it as a starting point and not as a certificate.'] = 'Bu baho grammatika, lug‘at va o‘qish bo‘yicha 9 ta tanlovli savolga asoslangan. Test gapirish va yozishni tekshirmaydi, qisqa test esa bir yoki undan ko‘p darajaga xato qilishi mumkin. Natijani sertifikat emas, boshlang‘ich nuqta deb biling.';
+DICT.ru['Listen'] = 'Слушать'; DICT.uz['Listen'] = 'Tinglash';
+DICT.ru['Slower'] = 'Медленнее'; DICT.uz['Slower'] = 'Sekinroq';
+DICT.ru['Stop'] = 'Остановить'; DICT.uz['Stop'] = 'To‘xtatish';
+DICT.ru['You can listen as many times as you like.'] = 'Вы можете слушать запись сколько угодно раз.';
+DICT.uz['You can listen as many times as you like.'] = 'Yozuvni istalgancha tinglashingiz mumkin.';
+DICT.ru['The voice is generated by your browser, so it sounds different on different devices.'] = 'Голос синтезируется браузером и может звучать по-разному на разных устройствах.';
+DICT.uz['The voice is generated by your browser, so it sounds different on different devices.'] = 'Ovoz brauzer tomonidan yaratiladi va turli qurilmalarda boshqacha eshitilishi mumkin.';
+DICT.ru['Audio is not available on this device (no English voice found in the browser). Read the transcript below instead: the exercise then practises reading, not listening.'] = 'На этом устройстве нет английского голоса в браузере. Прочитайте расшифровку ниже: это упражнение на чтение, а не на аудирование.';
+DICT.uz['Audio is not available on this device (no English voice found in the browser). Read the transcript below instead: the exercise then practises reading, not listening.'] = 'Bu qurilmadagi brauzerda inglizcha ovoz topilmadi. Quyidagi transkriptni o‘qing: bu tinglab tushunish emas, o‘qish mashqidir.';
+DICT.ru['9 questions on grammar, vocabulary and reading. At the end you get an approximate CEFR level, a breakdown by skill and a selection of lessons.'] = '9 вопросов по грамматике, лексике и чтению. В конце вы получите примерный уровень CEFR, результаты по навыкам и подборку уроков.';
+DICT.uz['9 questions on grammar, vocabulary and reading. At the end you get an approximate CEFR level, a breakdown by skill and a selection of lessons.'] = 'Grammatika, lug‘at va o‘qish bo‘yicha 9 ta savol. Yakunda taxminiy CEFR darajasi, ko‘nikmalar bo‘yicha natija va darslar tavsiyasi beriladi.';
+DICT.ru['Up to 12 questions and an approximate result on the CEFR scale'] = 'До 12 вопросов и примерный результат по шкале CEFR';
+DICT.uz['Up to 12 questions and an approximate result on the CEFR scale'] = 'CEFR shkalasi bo‘yicha 12 tagacha savol va taxminiy natija';
+DICT.ru['Up to 12 quick questions show roughly where to start on the CEFR scale.'] = 'До 12 быстрых вопросов примерно покажут, с какого уровня начать по шкале CEFR.';
+DICT.uz['Up to 12 quick questions show roughly where to start on the CEFR scale.'] = '12 tagacha tezkor savol CEFR bo‘yicha qaysi darajadan boshlashni ko‘rsatadi.';
 const RXC = I18N_DATA.rx.map(r=>({re:new RegExp(r[0]), ru:r[1], uz:r[2]}));
 function trStr(en){
   if(LANG==='en') return null;
@@ -1389,9 +1421,21 @@ function bindToTop(){
 let lastFocus = null;
 function bindOverlayKeys(){
   document.addEventListener('keydown', e=>{
-    if(e.key !== 'Escape') return;
-    if(lessonOverlay.classList.contains('open')){ closeLessonDetail(); }
-    if(typeof modalOverlay !== 'undefined' && modalOverlay.classList.contains('open')){ closeModal(); }
+    const active = [lessonOverlay, bookOverlay, typeof modalOverlay !== 'undefined' ? modalOverlay : null]
+      .find(el=>el && el.classList.contains('open'));
+    if(e.key === 'Escape'){
+      if(active === lessonOverlay) closeLessonDetail();
+      else if(active === bookOverlay) closeBookOverlay();
+      else if(active && typeof closeModal === 'function') closeModal();
+      return;
+    }
+    if(e.key !== 'Tab' || !active) return;
+    const focusable = [...active.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+      .filter(el=>!el.hidden && el.getAttribute('aria-hidden') !== 'true' && el.getClientRects().length);
+    if(!focusable.length){ e.preventDefault(); active.focus(); return; }
+    const first = focusable[0], last = focusable[focusable.length-1];
+    if(e.shiftKey && (document.activeElement === first || !active.contains(document.activeElement))){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && (document.activeElement === last || !active.contains(document.activeElement))){ e.preventDefault(); first.focus(); }
   });
 }
 function bindPosTracking(){
@@ -1976,7 +2020,7 @@ function renderLessons(){
       </div>
       <p>${l.d}</p>
       <div class="lc-skills">${lessonSkills(l).map(s=>`<span class="sk-chip">${s}</span>`).join('')}</div>
-      <div class="lc-chips">${dur ? `<span class="lc-chip">${svgIcon('clock',15)}${dur}</span>` : ''}${typ ? `<span class="lc-chip">${svgIcon('tag',15)}${esc(typ)}</span>` : ''}</div>
+      <div class="lc-chips">${dur ? `<span class="lc-chip">${svgIcon('clock',15)}${dur}</span>` : ''}${typ ? `<span class="lc-chip">${svgIcon('tag',15)}${esc(typ)}</span>` : ''}${l.review==='teacher' ? '<span class="lc-chip teacher-review">Needs teacher review</span>' : ''}</div>
       ${result}
       <button class="lc-cta${started ? ' cont' : ''}" type="button" data-cta="1" aria-label="${started ? 'Continue' : 'Start lesson'}: ${esc(l.t.replace(/<[^>]+>/g,''))}">${started ? 'Continue' : 'Start lesson'}</button>
     </article>`;
@@ -2056,7 +2100,7 @@ const Q = (q,opts,correct,exp)=>({q,opts,correct,exp});
 const NEW_LESSONS = {A1:[],A2:[],B1:[],B2:[],C1:[],C2:[]};
 /* ===== A1 new lessons ===== */
 NEW_LESSONS.A1 = [
-{t:`Present Simple: my daily routine`, d:`Habits and routines: what we do every day, with he/she and do/does.`, m:`30 min · grammar`, o:2, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Present Simple: my daily routine`, d:`Habits and routines: what we do every day, with he/she and do/does.`, m:`30 min · grammar`, o:2, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `We use the <b>Present Simple</b> for habits and routines: <i>I get up at seven. She works in a bank.</i>`,
   `With <b>he / she / it</b> we add <b>-s</b> (or <b>-es</b>): <i>He plays football. She watches TV. He goes to school.</i> After I, you, we and they the verb stays the same.`,
@@ -2088,7 +2132,7 @@ B: No, I don't. In the evening I watch a film with my family.`,
       Q(`What does he do in the evening?`,[`Plays football.`,`Does homework.`,`Watches a film.`],2,`"In the evening I watch a film with my family."`)]},
  speak:[[`Tell me about your morning. What time do you get up? What do you do?`,`I usually get up at ... Then I ...`],[`What do you do on Sundays?`,`On Sundays I ... In the evening I ...`],[`Ask a partner three questions about his or her day.`,`Do you ...? What time do you ...?`]]},
 
-{t:`There is / There are: home and school`, d:`Describe rooms, houses and classrooms with there is / there are and prepositions of place.`, m:`28 min · grammar`, o:5, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`There is / There are: home and school`, d:`Describe rooms, houses and classrooms with there is / there are and prepositions of place.`, m:`28 min · grammar`, o:5, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `We use <b>there is</b> with one thing and <b>there are</b> with two or more things: <i>There is a table in my room. There are two windows.</i>`,
   `Negatives and questions: <i>There isn't a TV. There aren't any chairs. Is there a bed? Are there any books?</i> We use <b>any</b> with plural nouns in negatives and questions.`,
@@ -2120,7 +2164,7 @@ Teacher: Excellent!`,
       Q(`Where is the map?`,[`On the door.`,`Between the windows.`,`Under the board.`],1,`"It is between the two windows."`)]},
  speak:[[`Describe your room. What is in it?`,`In my room there is ... There are ...`],[`Describe your classroom or school.`,`In my classroom there is ... There are ...`],[`Ask and answer with a partner: Is there a ... in your house? Are there any ...?`,`Is there a ... ? Yes, there is. / No, there isn't.`]]},
 
-{t:`Can / can't and likes: what I can do`, d:`Talk about abilities and things you like or don't like doing.`, m:`28 min · grammar`, o:7, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Can / can't and likes: what I can do`, d:`Talk about abilities and things you like or don't like doing.`, m:`28 min · grammar`, o:7, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `We use <b>can</b> to talk about ability: <i>I can swim. She can speak three languages.</i> After can the verb has no -s and no to: <i>He can drive.</i>`,
   `The negative is <b>can't</b> (cannot). Questions: <i>Can you cook? — Yes, I can. / No, I can't.</i>`,
@@ -2152,7 +2196,7 @@ A: Fantastic. See you on Saturday!`,
       Q(`When do they say they will see each other?`,[`On Friday.`,`On Saturday.`,`On Sunday.`],1,`"See you on Saturday!"`)]},
  speak:[[`What can you do well? What can't you do?`,`I can ... but I can't ...`],[`What do you like doing in your free time?`,`I like ... I don't like ...`],[`Ask a partner: Can you ...? Do you like ...?`,`Can you ...? Yes, I can. / No, I can't.`]]},
 
-{t:`Review project: All about me`, d:`Bring A1 together: introduce yourself with to be, Present Simple, can and question words.`, m:`35 min · review`, o:8, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Review project: All about me`, d:`Bring A1 together: introduce yourself with to be, Present Simple, can and question words.`, m:`35 min · review`, o:8, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `This lesson reviews A1: <b>to be</b> (<i>I am, she is</i>), the <b>Present Simple</b> (<i>I like, he plays</i>) and <b>can</b> (<i>I can swim</i>).`,
   `Question words: <b>What</b> (things), <b>Where</b> (places), <b>When</b> (time), <b>Who</b> (people), <b>How old</b> (age): <i>Where do you live? Who is your best friend? How old is your sister?</i>`,
@@ -2187,7 +2231,7 @@ B: Cool! There is a chess club on Wednesdays.`,
 ];
 /* ===== A2 new lessons ===== */
 NEW_LESSONS.A2 = [
-{t:`Present Continuous: what is happening now`, d:`Say what is happening at the moment and compare it with routines.`, m:`30 min · grammar`, o:1, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Present Continuous: what is happening now`, d:`Say what is happening at the moment and compare it with routines.`, m:`30 min · grammar`, o:1, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `We use the <b>Present Continuous</b> (am / is / are + verb-ing) for actions happening <b>now</b>, at the moment of speaking: <i>Listen! The baby is crying. I'm writing an email.</i>`,
   `Spelling: <i>work → working, make → making, run → running, sit → sitting.</i> Negatives: <i>She isn't sleeping.</i> Questions: <i>Are you listening? — Yes, I am.</i>`,
@@ -2221,7 +2265,7 @@ B: Good. See you later.`,
       Q(`What is Rustam's mother doing?`,[`Making dinner.`,`Playing volleyball.`,`Studying.`],0,`"Mum is making dinner."`)]},
  speak:[[`Look around you. What are you and the people near you doing now?`,`I'm ... My friend is ... They are ...`],[`Say what you usually do on Saturdays and what you are doing this Saturday.`,`I usually ... but this Saturday I'm ...`],[`Describe a photo or a street scene: what are the people doing?`,`In the picture a man is ... Two girls are ...`]]},
 
-{t:`Food, health and quantities`, d:`Countable and uncountable nouns, some / any, much / many, and a short talk at the doctor's.`, m:`32 min · vocabulary`, o:6, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Food, health and quantities`, d:`Countable and uncountable nouns, some / any, much / many, and a short talk at the doctor's.`, m:`32 min · vocabulary`, o:6, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `<b>Countable</b> nouns can be counted: <i>an apple, two apples</i>. <b>Uncountable</b> nouns cannot: <i>water, rice, bread, advice</i>. They have no plural form: <i>some water</i>, not <i>two waters</i>.`,
   `We use <b>some</b> in positive sentences and <b>any</b> in negatives and questions: <i>I have some bread. I don't have any milk. Do you have any eggs?</i>`,
@@ -2256,7 +2300,7 @@ Doctor: Just some tea with honey.`,
       Q(`What medicine does the doctor suggest?`,[`Pills.`,`Tea with honey.`,`Nothing at all.`],1,`"Just some tea with honey."`)]},
  speak:[[`What do you eat and drink on a normal day? Use some, a lot of, a little, a few.`,`For breakfast I have some ... I drink a lot of ...`],[`Role-play at the doctor's: one person is the patient, one is the doctor.`,`What's the matter? I've got ... You should ...`],[`Give a friend three pieces of advice for a healthy week.`,`You should ... You shouldn't ...`]]},
 
-{t:`Invitations and arrangements`, d:`Invite people, accept or decline politely, and arrange a time.`, m:`28 min · speaking`, o:7, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Invitations and arrangements`, d:`Invite people, accept or decline politely, and arrange a time.`, m:`28 min · speaking`, o:7, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `<b>Inviting:</b> <i>Would you like to come to my party? Do you want to go to the cinema? Why don't we meet at five? Let's go to the park.</i>`,
   `<b>Accepting:</b> <i>Yes, I'd love to. That sounds great. Good idea!</i> <b>Declining politely:</b> <i>I'm sorry, I can't. I'm busy on Saturday. Maybe another time?</i> It is polite to give a short reason.`,
@@ -2293,7 +2337,7 @@ A: Good idea. See you there!`,
       Q(`When do they decide to meet?`,[`At six.`,`At a quarter to six.`,`At half past six.`],1,`"...at the cinema at a quarter to six."`)]},
  speak:[[`Invite a friend to do something this weekend. Your partner accepts or says no politely.`,`Would you like to ...? I'd love to. / I'm sorry, I can't.`],[`Arrange a time and a place to meet.`,`How about ... at ...? Why don't we meet at ...?`],[`Tell a partner about your plans for this week.`,`On Monday I'm ... On Friday I'm meeting ...`]]},
 
-{t:`Review: an email about my weekend`, d:`Review A2 by reading and writing about what you did and what you are going to do.`, m:`35 min · review`, o:8, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Review: an email about my weekend`, d:`Review A2 by reading and writing about what you did and what you are going to do.`, m:`35 min · review`, o:8, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `A friendly email has five parts: <b>greeting</b> → <b>news</b> (Past Simple) → <b>plans</b> (<i>going to</i>) → <b>a question</b> → <b>closing</b> (<i>Best wishes, See you soon</i>).`,
   `Past Simple reminder: <i>went, bought, watched, stayed, didn't like.</i> Use linking words: <b>first, then, after that, but, because, so</b>.`,
@@ -2325,7 +2369,7 @@ Ali`,
 ];
 /* ===== B1 new lessons ===== */
 NEW_LESSONS.B1 = [
-{t:`Modals: advice, obligation and permission`, d:`Should, must, have to, mustn't, don't have to, may and can for rules and advice.`, m:`32 min · grammar`, o:1, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Modals: advice, obligation and permission`, d:`Should, must, have to, mustn't, don't have to, may and can for rules and advice.`, m:`32 min · grammar`, o:1, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `<b>Advice:</b> use <b>should / shouldn't</b> (and <b>ought to</b>): <i>You should see a doctor. You shouldn't stay up late.</i>`,
   `<b>Obligation:</b> <b>must</b> is often the speaker's own opinion or a strong rule; <b>have to</b> is usually an external rule: <i>I must call my mother. Students have to wear a uniform.</i> <b>Don't have to</b> means it is <i>not necessary</i>: <i>You don't have to come early.</i> <b>Mustn't</b> means it is <i>forbidden</i>: <i>You mustn't use your phone in the exam.</i>`,
@@ -2354,7 +2398,7 @@ Coach: Yes, you do. Everyone has to wear the green shirts.`,
       Q(`What mustn't the players wear?`,[`Jewellery.`,`Green shirts.`,`Boots.`],0,`"Players mustn't wear jewellery."`)]},
  speak:[[`A friend cannot sleep and has a lot of stress. Give three pieces of advice.`,`You should ... You shouldn't ... Why don't you ...?`],[`Explain the rules of your school or workplace to a new person.`,`You have to ... You mustn't ... You don't have to ...`],[`Role-play: ask for permission politely (to open a window, to borrow something, to leave early).`,`May I ...? Could I ...? Is it OK if I ...?`]]},
 
-{t:`Past Continuous and narrative tenses`, d:`Tell a story with the Past Simple and Past Continuous, using when and while.`, m:`32 min · grammar`, o:3, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Past Continuous and narrative tenses`, d:`Tell a story with the Past Simple and Past Continuous, using when and while.`, m:`32 min · grammar`, o:3, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `The <b>Past Continuous</b> (was / were + verb-ing) describes an action <b>in progress</b> at a moment in the past: <i>At eight o'clock I was having breakfast.</i> It sets the scene of a story.`,
   `We use the <b>Past Simple</b> for finished events and the <b>Past Continuous</b> for the longer background action: <i>I was walking home when it started to rain.</i> Use <b>when</b> with the short event and <b>while</b> with the longer action: <i>While I was cooking, the phone rang.</i>`,
@@ -2387,7 +2431,7 @@ Officer: Thank you. That's all for now.`,
       Q(`What was the weather like?`,[`Raining.`,`Sunny.`,`Snowing.`],0,`"It was raining, and the street was empty."`)]},
  speak:[[`Tell the story of an unusual day. Use both the Past Simple and the Past Continuous.`,`It was a ... day. I was ... when suddenly ...`],[`Say what you were doing at these times yesterday: 7 am, noon, 9 pm.`,`At seven I was ... At noon I was ...`],[`Retell the story "The lost wallet" in your own words.`,`The writer was walking ... when ...`]]},
 
-{t:`The passive voice: processes and news`, d:`Use the passive to describe how things are made and to report events.`, m:`35 min · grammar`, o:7, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`The passive voice: processes and news`, d:`Use the passive to describe how things are made and to report events.`, m:`35 min · grammar`, o:7, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `We use the <b>passive</b> when the action is more important than who did it, or when we do not know who did it: <i>The bridge was built in 1998. English is spoken all over the world.</i>`,
   `Form: <b>be + past participle</b>. Present: <i>is / are made</i>. Past: <i>was / were made</i>. Present Perfect: <i>has / have been made</i>. Future: <i>will be made</i>.`,
@@ -2415,7 +2459,7 @@ In other news, the city marathon has been postponed because of the weather. A ne
       Q(`Why has the marathon been postponed?`,[`Because of the weather.`,`Because there are too few runners.`,`Because the library opened.`],0,`"...postponed because of the weather."`)]},
  speak:[[`Describe how a product is made or a meal is prepared. Use the passive.`,`First, the ... is ... Then it is ... Finally ...`],[`Give a short news report about something that happened in your town this week.`,`A ... was opened/built/announced ... It has been ...`],[`Ask a partner passive questions: When was ... invented? Where is ... grown?`,`When was ... ? Where is ... made?`]]},
 
-{t:`Reading and listening skills: main ideas and summaries`, d:`Skim for main ideas, scan for details, guess new words from context and write a short summary.`, m:`40 min · skills`, o:8, sk:['vocab','reading','listening','speaking'],
+{review:'teacher', t:`Reading and listening skills: main ideas and summaries`, d:`Skim for main ideas, scan for details, guess new words from context and write a short summary.`, m:`40 min · skills`, o:8, sk:['vocab','reading','listening','speaking'],
  explain:[
   `First read quickly for the <b>main idea</b> (<b>skimming</b>): look at the title and at the first and last sentences of each paragraph.`,
   `Then read again for <b>details</b> (<b>scanning</b>): look for names, numbers and reasons. Underline key words.`,
@@ -2447,7 +2491,7 @@ The effects of poor sleep are serious. Tired students find it difficult to conce
 ];
 /* ===== B2 new lessons ===== */
 NEW_LESSONS.B2 = [
-{t:`Relative clauses: defining and non-defining`, d:`Add information to nouns with who, which, that, whose, where and when.`, m:`35 min · grammar`, o:1, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Relative clauses: defining and non-defining`, d:`Add information to nouns with who, which, that, whose, where and when.`, m:`35 min · grammar`, o:1, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `<b>Defining</b> relative clauses tell us <i>which</i> person or thing we mean; there are no commas: <i>The woman who lives next door is a doctor.</i> Use <b>who</b> for people, <b>which</b> for things, <b>that</b> for both, <b>whose</b> for possession, <b>where</b> for places and <b>when</b> for times.`,
   `In a defining clause we can leave out <b>who / which / that</b> when it is the <b>object</b>: <i>The book (that) I bought is great.</i> We cannot leave it out when it is the <b>subject</b>: <i>The man who called you is here.</i>`,
@@ -2480,7 +2524,7 @@ Dr Yusupova: That bees, which have tiny brains, can learn to recognise patterns.
       Q(`What does a bee do to tell others about good flowers?`,[`It dances.`,`It sings.`,`It writes.`],0,`"...tells the others where to go by dancing."`)]},
  speak:[[`Define five things or people with relative clauses: "A teacher is a person who ..."`,`A ... is a person who ... / a thing which ... / a place where ...`],[`Describe a person you admire. Use at least three relative clauses.`,`I admire ..., who ... Her/His ..., which ...`],[`Compare two places you know (for example two shops or two cafés).`,`The first, which ..., is ... The second, where ..., is ...`]]},
 
-{t:`Reported speech`, d:`Report statements, questions and requests: tense changes, pronouns and time words.`, m:`35 min · grammar`, o:3, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Reported speech`, d:`Report statements, questions and requests: tense changes, pronouns and time words.`, m:`35 min · grammar`, o:3, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `Reported speech tells what someone said without quoting. The verb usually moves one step back: <b>Present Simple → Past Simple</b>, <b>Present Continuous → Past Continuous</b>, <b>Present Perfect → Past Perfect</b>, <b>will → would</b>, <b>can → could</b>. <i>"I work here." → She said (that) she worked here.</i>`,
   `Pronouns and time words change too: <i>today → that day, tomorrow → the next day, yesterday → the day before, here → there, now → then.</i>`,
@@ -2509,7 +2553,7 @@ Some residents are not so happy. One man, who lives near the site, complained th
       Q(`What time will the meeting start?`,[`At ten.`,`At nine.`,`At eleven.`],0,`"...we will start at ten, not at nine."`)]},
  speak:[[`Tell a partner about a conversation you had recently. Report what each person said.`,`She said that ... I told her that ... He asked me if ...`],[`Interview a partner with five questions, then report the answers to the class.`,`I asked Aziz where he ... He said that he ...`],[`Report three instructions your teacher gave you this week.`,`She told us to ... She asked us not to ...`]]},
 
-{t:`Reading and listening: a science article and a lecture`, d:`Understand cause and effect, tell facts from opinions and follow the structure of a lecture.`, m:`45 min · skills`, o:7, sk:['vocab','reading','listening','speaking'],
+{review:'teacher', t:`Reading and listening: a science article and a lecture`, d:`Understand cause and effect, tell facts from opinions and follow the structure of a lecture.`, m:`45 min · skills`, o:7, sk:['vocab','reading','listening','speaking'],
  explain:[
   `<b>Cause and effect:</b> <i>because of / due to</i> + noun (<i>because of the rain</i>); <i>as a result, therefore, consequently</i> introduce a result; <i>lead to, result in, cause</i> link a cause to its effect: <i>Poor sleep leads to problems with memory.</i>`,
   `<b>Facts and opinions:</b> a fact can be checked (<i>Water boils at 100 °C at sea level</i>); an opinion shows what someone thinks (<i>Maths is the most beautiful subject</i>). Words like <i>suggest, claim, seem, may</i> show that the writer is cautious.`,
@@ -2543,7 +2587,7 @@ Let me move on to solutions. Many cities now plant trees, paint roofs white and 
       Q(`Which solution is NOT mentioned?`,[`Building taller towers.`,`Planting trees.`,`Painting roofs white.`],0,`Taller towers are not mentioned.`)]},
  speak:[[`Explain a cause-and-effect chain you know: for example how stress affects sleep or how traffic affects air quality.`,`Because of ..., ... As a result ... This leads to ...`],[`Summarise the article "Why do we dream?" in about one minute.`,`The text is about ... One theory suggests ... Another claims ... In conclusion ...`],[`Say one fact and one opinion about your city and explain the difference.`,`It is a fact that ... In my opinion ...`]]},
 
-{t:`Review: a talk and a formal email`, d:`Structure a short talk with signposts and write a polite formal email.`, m:`40 min · review`, o:8, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Review: a talk and a formal email`, d:`Structure a short talk with signposts and write a polite formal email.`, m:`40 min · review`, o:8, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `<b>Formal email:</b> <i>Dear Ms Rahimova, / I am writing to enquire about... / I would be grateful if you could... / I look forward to hearing from you. / Yours sincerely,</i> Use <b>Yours sincerely</b> when you know the name (<i>Dear Mr Aliyev</i>) and <b>Yours faithfully</b> after <i>Dear Sir or Madam</i>.`,
   `Formal register: avoid contractions and slang; use <b>would like to</b> instead of <i>want to</i>, <b>could you please</b> instead of <i>can you</i>, and <b>I would be grateful if</b> instead of <i>please</i>.`,
@@ -2579,7 +2623,7 @@ Let me begin with the first point. Last year, volunteers in our city collected m
 ];
 /* ===== C1 new lessons ===== */
 NEW_LESSONS.C1 = [
-{t:`Inversion and emphasis`, d:`Use negative adverbials, cleft sentences and fronting for emphasis in formal writing and speech.`, m:`35 min · grammar`, o:1, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Inversion and emphasis`, d:`Use negative adverbials, cleft sentences and fronting for emphasis in formal writing and speech.`, m:`35 min · grammar`, o:1, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `After a negative or restrictive adverbial at the start of a sentence, the auxiliary comes <b>before</b> the subject: <i>Never have I seen such a view. Rarely does she complain. Not only did he apologise, but he also paid for the damage. Hardly had we sat down when the phone rang.</i>`,
   `<b>Cleft sentences</b> put the focus on one part: <i>What I need is a holiday. It was Maria who solved the problem. The reason I called is that I have news.</i>`,
@@ -2609,7 +2653,7 @@ Little did the planners imagine that the area would become so popular that touri
       Q(`What did she win after saving the match point?`,[`The third set.`,`The tournament immediately.`,`Nothing.`],0,`"...went on to win the third set."`)]},
  speak:[[`Describe a surprising experience using at least three inverted structures.`,`Never have I ... Not only did ... but also ... Hardly had ... when ...`],[`Use cleft sentences to explain what matters most to you in a job.`,`What matters most to me is ... The thing I value is ...`],[`Talk about a moment of success. Use Rarely / Seldom / Little did I ...`,`Little did I know that ...`]]},
 
-{t:`Hedging, cohesion and academic style`, d:`Write cautiously and clearly: hedging, nominalisation, linking devices and reference.`, m:`40 min · writing skills`, o:3, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Hedging, cohesion and academic style`, d:`Write cautiously and clearly: hedging, nominalisation, linking devices and reference.`, m:`40 min · writing skills`, o:3, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `<b>Hedging</b> makes claims less absolute: <i>This may indicate... It seems that... The results suggest... tends to... to some extent.</i> Compare: <i>Social media destroys concentration</i> (too strong) vs <i>Heavy social media use may reduce concentration in some users</i> (cautious).`,
   `<b>Nominalisation</b> turns verbs and adjectives into nouns for a more formal tone: <i>People decided quickly → The speed of the decision...; Prices rose sharply → There was a sharp rise in prices.</i>`,
@@ -2641,7 +2685,7 @@ Tutor: Exactly. And try to avoid repeating "remote work". You could write "this 
       Q(`What does the tutor advise to avoid repetition?`,[`Use reference words such as this arrangement or the latter.`,`Delete the second paragraph.`,`Use shorter sentences only.`],0,`He suggests "this arrangement" or "the latter".`)]},
  speak:[[`Rephrase three strong claims in a cautious, academic way (for example: "Homework is useless").`,`Homework may be less effective when ... Evidence suggests that ...`],[`Explain the advantages and disadvantages of online learning using at least four linking devices.`,`Moreover, ... Nevertheless, ... In contrast, ... Consequently, ...`],[`Present a short summary of an article you read recently using hedging language.`,`The article suggests that ... It seems that ... To some extent ...`]]},
 
-{t:`Reading and listening: argument, tone and implied meaning`, d:`Identify the writer's attitude, implied meaning, irony and the structure of an argument.`, m:`45 min · skills`, o:7, sk:['vocab','reading','listening','speaking'],
+{review:'teacher', t:`Reading and listening: argument, tone and implied meaning`, d:`Identify the writer's attitude, implied meaning, irony and the structure of an argument.`, m:`45 min · skills`, o:7, sk:['vocab','reading','listening','speaking'],
  explain:[
   `<b>Attitude and tone:</b> look at word choice. <i>Admittedly, mere, so-called, hardly, supposedly</i> often signal doubt or criticism. Positive or negative connotations show the writer's feelings: <i>slim</i> (positive) vs <i>skinny</i> (negative).`,
   `<b>Implied meaning:</b> the writer does not always state their view directly. <i>Her talk was a masterclass in how to lose an audience</i> means the talk was bad (irony).`,
@@ -2675,7 +2719,7 @@ B: I wouldn't say that. If you're a historian, you'll love it.`,
       Q(`Who would enjoy the book, according to B?`,[`A historian.`,`A child.`,`Anyone.`],0,`"If you're a historian, you'll love it."`)]},
  speak:[[`Describe a text, film or speech where the real meaning was not stated directly. How did you know?`,`The writer never says ..., but ... The tone suggests ...`],[`Summarise the argument of an article: claim, evidence, counter-argument, conclusion.`,`The author claims that ... Evidence includes ... Critics argue ... Overall ...`],[`Say the same sentence three ways to show surprise, doubt and certainty.`,`You finished the report? (doubt) / You finished the report. (certainty)`]]},
 
-{t:`Review: a debate and a discursive essay`, d:`Present and respond to arguments in speaking and writing, with a clear structure and a balanced conclusion.`, m:`45 min · review`, o:8, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Review: a debate and a discursive essay`, d:`Present and respond to arguments in speaking and writing, with a clear structure and a balanced conclusion.`, m:`45 min · review`, o:8, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `<b>Essay structure:</b> introduction (context + position), 2–3 body paragraphs (point → evidence → comment), counter-argument, conclusion. Use topic sentences to open each paragraph.`,
   `<b>Debate language:</b> <i>I would argue that... While it is true that..., ... I take your point, but... That may be so; however... On balance, ...</i>`,
@@ -2710,7 +2754,7 @@ Chair: Thank you both. We will now take questions from the floor.`,
 ];
 /* ===== C2 new lessons ===== */
 NEW_LESSONS.C2 = [
-{t:`Register, idiom and collocation`, d:`Choose precise words for the situation: formal and informal register, collocations, idioms and nuance.`, m:`40 min · vocabulary`, o:1, sk:['vocab','grammar','reading','listening','speaking'],
+{review:'teacher', t:`Register, idiom and collocation`, d:`Choose precise words for the situation: formal and informal register, collocations, idioms and nuance.`, m:`40 min · vocabulary`, o:1, sk:['vocab','grammar','reading','listening','speaking'],
  explain:[
   `<b>Register</b> is the level of formality. <i>Purchase / buy / pick up</i> and <i>commence / begin / kick off</i> mean similar things but suit different situations. Choose the register to match the reader and purpose.`,
   `<b>Collocations</b> are natural word partnerships: <i>make a decision</i> (not do), <i>heavy rain</i> (not strong), <i>bitterly disappointed</i>, <i>raise awareness</i>, <i>draw a conclusion</i>. Wrong collocations are a common sign of non-native English even when the grammar is correct.`,
@@ -2739,7 +2783,7 @@ Idioms present a further risk. Used well, an expression such as "a blessing in d
       Q(`What should idioms do?`,[`Add something to the message.`,`Show the speaker's age.`,`Replace all verbs.`],0,`"They should add something, not decorate."`)]},
  speak:[[`Say the same message in a formal and an informal register (for example, apologising for being late).`,`Formal: I sincerely apologise for ... Informal: Sorry I'm late, ...`],[`Explain five collocations you have learned recently and use each in a sentence.`,`make a ... / raise ... / draw ...`],[`Tell a short story that contains one well-chosen idiom.`,`It turned out to be a blessing in disguise ...`]]},
 
-{t:`Discourse and rhetorical devices`, d:`Understand how speakers and writers persuade: rhetorical questions, repetition, contrast, rule of three and tone.`, m:`40 min · skills`, o:3, sk:['vocab','reading','listening','speaking'],
+{review:'teacher', t:`Discourse and rhetorical devices`, d:`Understand how speakers and writers persuade: rhetorical questions, repetition, contrast, rule of three and tone.`, m:`40 min · skills`, o:3, sk:['vocab','reading','listening','speaking'],
  explain:[
   `<b>Rhetorical devices</b> help persuade an audience. <b>Rhetorical question:</b> <i>Can we afford to wait?</i> (no answer expected). <b>Repetition:</b> repeating a key phrase for emphasis. <b>Contrast (antithesis):</b> <i>Ask not what your country can do for you.</i> <b>Rule of three (tricolon):</b> <i>We came, we saw, we conquered.</i>`,
   `<b>Tone and stance:</b> the same facts can be presented as <i>a crisis</i> or <i>a challenge</i>. Notice how the choice of words presents the speaker's attitude and tries to influence the audience.`,
@@ -2768,7 +2812,7 @@ So the choice is simple: we can continue to study the problem, or we can start t
       Q(`What does the speaker want the audience to do at the end?`,[`Speak up, stand up and vote.`,`Go home.`,`Pay taxes.`],0,`"...to speak up, to stand up, and to vote."`)]},
  speak:[[`Give a one-minute persuasive speech on a local issue. Use a rhetorical question, repetition and a list of three.`,`Can we really ...? We need ..., we need ..., we need ... So join me ...`],[`Analyse a short speech or advert: which devices does it use and why?`,`The speaker uses a rhetorical question to ... The repetition emphasises ...`],[`Present the same information in a neutral and in a persuasive way.`,`Neutral: Traffic increased by 10%. Persuasive: Traffic is choking our city ...`]]},
 
-{t:`Reading and listening: nuance, stance and subtext`, d:`Detect subtle differences in meaning, the writer's stance and implied criticism in demanding texts.`, m:`50 min · skills`, o:7, sk:['vocab','reading','listening','speaking'],
+{review:'teacher', t:`Reading and listening: nuance, stance and subtext`, d:`Detect subtle differences in meaning, the writer's stance and implied criticism in demanding texts.`, m:`50 min · skills`, o:7, sk:['vocab','reading','listening','speaking'],
  explain:[
   `<b>Subtle differences:</b> near-synonyms differ in strength or attitude: <i>thrifty / stingy</i>, <i>determined / stubborn</i>, <i>childlike / childish</i>. The first word in each pair is positive, the second negative.`,
   `<b>Understatement and euphemism:</b> <i>not entirely successful</i> may mean a failure; <i>between jobs</i> means unemployed. In listening, a pause or a change in tone may signal criticism or discomfort.`,
@@ -2797,7 +2841,7 @@ It is arguably the book's misfortune to have appeared alongside a much livelier 
       Q(`The phrase "certainly ambitious" probably suggests the draft is:`,[`too difficult or unfocused`,`very short`,`well structured`],0,`It is a polite way of showing concern.`)]},
  speak:[[`Give polite but honest feedback on a piece of work, using understatement.`,`It's a promising start, but I'm not entirely convinced by ... Perhaps ...`],[`Explain the difference between three pairs of near-synonyms (e.g., thrifty / stingy).`,`Both mean ..., but ... has a negative / positive connotation.`],[`Summarise a review and explain the reviewer's stance and how you can tell.`,`The reviewer is critical, though respectful. The phrase ... shows ...`]]},
 
-{t:`Review: a lecture summary and a critical response`, d:`Summarise a complex text accurately in your own words and write a critical response.`, m:`50 min · review`, o:8, sk:['grammar','vocab','reading','listening','speaking'],
+{review:'teacher', t:`Review: a lecture summary and a critical response`, d:`Summarise a complex text accurately in your own words and write a critical response.`, m:`50 min · review`, o:8, sk:['grammar','vocab','reading','listening','speaking'],
  explain:[
   `<b>Summarising:</b> identify the main ideas, leave out examples and detail, and use your own words. Use reporting verbs: <i>the author argues, points out, claims, concludes</i>. Keep the summary to about a quarter of the original or less.`,
   `<b>Paraphrasing</b> changes both vocabulary and structure: <i>Many people believe that remote work improves wellbeing → A widespread assumption is that working from home benefits employees' wellbeing.</i> Do not just replace a few words.`,
@@ -2827,7 +2871,7 @@ Critical response: The argument is persuasive in so far as it draws on historica
  speak:[[`Listen or read, then give a 60-second oral summary in your own words.`,`The speaker argues that ... The main points are ... In conclusion ...`],[`Give a critical response to an article: what is convincing, what is missing?`,`The argument is persuasive in so far as ... However, it overlooks ...`],[`Paraphrase three sentences from a text, changing both vocabulary and structure.`,`Original: ... → In other words, ...`]]}
 ];
 
-Object.keys(NEW_LESSONS).forEach(L=>{ NEW_LESSONS[L].forEach(n=>{ n.isNew = true; n.review = 'teacher'; LESSONS[L].push(n); }); /* review: 'teacher' = written by Claude, waiting for a specialist's check */ });
+Object.keys(NEW_LESSONS).forEach(L=>{ NEW_LESSONS[L].forEach(n=>{ n.isNew = true; LESSONS[L].push(n); }); /* supplemental records carry an explicit review: 'teacher' status */ });
 Object.keys(LESSONS).forEach(L=>{
   const arr = LESSONS[L], used = new Set(arr.filter(x=>x.o).map(x=>x.o)); let slot = 1;
   arr.forEach(x=>{
@@ -2850,7 +2894,7 @@ const LEVEL_GOALS = {
 function lessonSkills(l){
   const a = ['Grammar & vocabulary'];
   if(l.reading) a.push('Reading');
-  if(l.listening) a.push('Listening');
+  if(l.listening) a.push(ttsNoEnglishVoice() ? 'Transcript reading (audio unavailable)' : 'Listening');
   if(l.speak) a.push('Speaking practice');
   return a;
 }
@@ -2887,18 +2931,18 @@ function listenWidget(script, idp){
   const unavailable = ttsNoEnglishVoice();
   const html = esc(script).replace(/\n/g,'<br>');
   if(unavailable){
-    return `<div class="lx-listen" data-no-i18n>
+    return `<div class="lx-listen">
       <p class="lx-note lx-warn">Audio is not available on this device (no English voice found in the browser). Read the transcript below instead: the exercise then practises reading, not listening.</p>
-      <div class="lx-script open">${html}</div></div>`;
+      <div class="lx-script open" data-no-i18n>${html}</div></div>`;
   }
-  return `<div class="lx-listen" data-no-i18n data-script="${esc(script)}" id="${idp}">
+  return `<div class="lx-listen" data-script="${esc(script)}" id="${idp}">
     <div class="lx-audio">
       <button class="btn btn-gold lx-play" type="button" data-rate="0.92">&#9654; Listen</button>
       <button class="btn btn-line-dark lx-play" type="button" data-rate="0.72">Slower</button>
       <button class="btn btn-line-dark lx-stop" type="button">&#9632; Stop</button>
     </div>
     <p class="lx-note">The voice is generated by your browser, so it sounds different on different devices.</p>
-    <details class="lx-det"><summary>Show transcript</summary><div class="lx-script">${html}</div></details>
+    <details class="lx-det"><summary>Show transcript</summary><div class="lx-script" data-no-i18n>${html}</div></details>
   </div>`;
 }
 function bindListen(root){
@@ -2917,11 +2961,13 @@ function openLessonDetail(level, i){
   const l = LESSONS[level][i];
   PG.d.last = {type:'lesson', level, i}; PG.save(); renderContinue();
   const explainHtml = l.explain.map(p=>`<p>${p}</p>`).join('');
+  const reviewLine = l.review==='teacher' ? '<p class="lesson-review">Needs teacher review</p>' : '';
   const total = LESSONS[level].length;
   // groups of questions: options are shuffled once per opening
   const groups = [{key:'quiz', title:'Grammar & vocabulary', qs:l.quiz}];
   if(l.reading) groups.push({key:'reading', title:'Reading comprehension', qs:l.reading.qs});
-  if(l.listening) groups.push({key:'listening', title:'Listening comprehension', qs:l.listening.qs});
+  const audioAvailable = l.listening && !ttsNoEnglishVoice();
+  if(audioAvailable) groups.push({key:'listening', title:'Listening comprehension', qs:l.listening.qs});
   const flat = [];
   groups.forEach(g=>g.qs.forEach(q=>{ const s = shuffleOpts(q.opts, q.correct); flat.push({g:g.key, q:q.q, exp:q.exp, opts:s.opts, correct:s.correct}); }));
   const qHtml = (g)=> flat.map((q,qi)=>({q,qi})).filter(x=>x.q.g===g).map((x,n)=>`
@@ -2933,7 +2979,7 @@ function openLessonDetail(level, i){
   const exHtml = (l.ex && l.ex.length) ? `<div class="lx-sec" id="lx-ex"><h3>Examples</h3><ul class="lx-ex" data-no-i18n>${l.ex.map(e=>`<li><span>${e[0]}</span>${e[1] ? `<em>${e[1]}</em>` : ''}</li>`).join('')}</ul></div>` : '';
   const vocHtml = (l.vocab && l.vocab.length) ? `<div class="lx-sec" id="lx-voc"><h3>Key words</h3><dl class="lx-voc" data-no-i18n>${l.vocab.map(v=>`<div><dt>${v[0]}</dt><dd>${v[1]}</dd></div>`).join('')}</dl></div>` : '';
   const rdHtml = l.reading ? `<div class="lx-sec" id="lx-rd"><h3>Reading</h3><div data-no-i18n><h4 class="lx-title">${l.reading.title}</h4><div class="lx-text">${l.reading.text.split(/\n+/).map(p=>`<p>${esc(p)}</p>`).join('')}</div></div><div class="lx-qs" data-no-i18n>${qHtml('reading')}</div></div>` : '';
-  const lsHtml = l.listening ? `<div class="lx-sec" id="lx-ls"><h3>Listening</h3><h4 class="lx-title" data-no-i18n>${l.listening.title}</h4>${listenWidget(l.listening.script, 'lxl')}<div class="lx-qs" data-no-i18n>${qHtml('listening')}</div></div>` : '';
+  const lsHtml = l.listening ? `<div class="lx-sec" id="lx-ls"><h3>${audioAvailable ? 'Listening' : 'Transcript (reading practice)'}</h3><h4 class="lx-title" data-no-i18n>${l.listening.title}</h4>${listenWidget(l.listening.script, 'lxl')}<div class="lx-qs" data-no-i18n>${audioAvailable ? qHtml('listening') : ''}</div></div>` : '';
   const spHtml = l.speak ? `<div class="lx-sec" id="lx-sp"><h3>Speaking practice</h3><p class="lx-note">Say these aloud (or write them). This part is not scored by the site: the site does not record or assess your speech here. Ask a teacher or a study partner for feedback.</p><ol class="lx-speak" data-no-i18n>${l.speak.map(s=>`<li><span>${s[0]}</span>${s[1] ? `<em>Useful language: ${s[1]}</em>` : ''}</li>`).join('')}</ol></div>` : '';
   const jump = [['lx-ex',exHtml],['lx-voc',vocHtml],['lx-quiz',1],['lx-rd',rdHtml],['lx-ls',lsHtml],['lx-sp',spHtml]].filter(x=>x[1]).map(x=>{
     const nm = {'lx-ex':'Examples','lx-voc':'Key words','lx-quiz':'Quiz','lx-rd':'Reading','lx-ls':'Listening','lx-sp':'Speaking'}[x[0]];
@@ -2943,6 +2989,7 @@ function openLessonDetail(level, i){
     <button class="back-btn" id="lessonBack">← Back to lessons</button>
     <div class="lvl-tag">${level} · Lesson ${l.o} of ${total}</div>
     <h2>${l.t}</h2>
+    ${reviewLine}
     <div class="meta-line">${l.m}</div>
     <div class="lx-skills">${lessonSkills(l).map(s=>`<span class="sk-chip">${s}</span>`).join('')}</div>
     <nav class="lx-jumps" aria-label="Lesson sections">${jump}</nav>
@@ -3229,7 +3276,11 @@ function pickTestItems(){
   const band = (a,b)=>g.filter(x=>x.idx>=a && x.idx<=b);
   const items = [].concat(pickRandomQuestions(band(0,11),2), pickRandomQuestions(band(12,19),2), pickRandomQuestions(band(20,29),2));
   [0,2,4].forEach(s=>{ const r = pickRandomQuestions(TEST_READING.slice(s,s+2),1)[0]; items.push(Object.assign({}, r, {sk:'reading'})); });
-  [0,2,4].forEach(s=>{ const r = pickRandomQuestions(TEST_LISTENING.slice(s,s+2),1)[0]; items.push(Object.assign({}, r, {sk: ttsNoEnglishVoice() ? 'listening-text' : 'listening'})); });
+  // Do not turn unavailable listening items into scored reading questions. The
+  // listening section is included only when this browser can actually read it aloud.
+  if(!ttsNoEnglishVoice()){
+    [0,2,4].forEach(s=>{ const r = pickRandomQuestions(TEST_LISTENING.slice(s,s+2),1)[0]; items.push(Object.assign({}, r, {sk:'listening'})); });
+  }
   // easy to hard, ties in random order
   return items.map(x=>[x, Math.random()]).sort((a,b)=>(a[0].w - b[0].w) || (a[1]-b[1])).map(x=>x[0]);
 }
@@ -3245,11 +3296,17 @@ function levelFromScore(pct){
 
 function renderTest(){
   if(qIndex === -1){
+    const hasListening = !ttsNoEnglishVoice();
+    const questionCount = hasListening ? 12 : 9;
+    const intro = document.getElementById('testIntro');
+    if(intro) intro.textContent = hasListening
+      ? '12 questions on grammar, vocabulary, reading and listening. At the end you get an approximate CEFR level, a breakdown by skill and a selection of lessons.'
+      : '9 questions on grammar, vocabulary and reading. At the end you get an approximate CEFR level, a breakdown by skill and a selection of lessons.';
     testWrap.innerHTML = `
       <div class="test-start">
         <div class="display">Ready to estimate your level?</div>
-        <p>12 short questions, about 5 minutes: grammar, vocabulary, reading and listening. At the end you get an approximate CEFR level, a breakdown by skill and a selection of lessons.</p>
-        <p class="spk-note">The listening questions are read aloud by your browser's voice, so turn the sound on. This test does not check speaking or writing. It is only an estimate, not an official result.</p>
+        <p>${questionCount} short questions, about 5 minutes: grammar, vocabulary, reading${hasListening ? ' and listening' : ''}. At the end you get an approximate CEFR level, a breakdown by skill and a selection of lessons.</p>
+        <p class="spk-note">${hasListening ? 'The listening questions are read aloud by your browser\'s voice, so turn the sound on.' : 'No English speech voice is available in this browser, so listening questions are omitted and do not affect your score.'} This test does not check speaking or writing. It is only an estimate, not an official result.</p>
         <button class="btn btn-gold" id="startBtn">Start the test</button>
         ${PG.d.level ? `<p class="last-result">Your last result (approximate): <b>${PG.d.level.code}</b> · ${fmtDate(PG.d.level.t)}</p>` : ''}
       </div>`;
@@ -3279,7 +3336,7 @@ function renderTest(){
         <div class="result-name">${lvl.name}</div>
         <p class="result-desc">${lvl.desc}</p>
         <div class="res-skills"><b>Skills tested</b><ul>${rows}</ul></div>
-        <p class="spk-note">This estimate comes from ${shuffledQuestions.length} multiple-choice questions on grammar, vocabulary, reading and listening. It does not test speaking or writing, and a short test can be off by a level or more, so treat it as a starting point and not as a certificate.</p>
+        <p class="spk-note">This estimate comes from ${shuffledQuestions.length} multiple-choice questions on grammar, vocabulary, reading${shuffledQuestions.some(q=>q.sk==='listening') ? ' and listening' : ''}. It does not test speaking or writing, and a short test can be off by a level or more, so treat it as a starting point and not as a certificate.</p>
         <button class="btn btn-gold" id="toLessons">View ${lvl.code} lessons</button>
         <button class="btn btn-line" id="retake" style="margin-left:10px;">Take it again</button>
       </div>`;
@@ -3297,7 +3354,7 @@ function renderTest(){
   if(item.p) extra = `<div class="q-passage" data-no-i18n>${esc(item.p)}</div>`;
   if(item.au){
     if(item.sk === 'listening-text') extra = `<p class="lx-note lx-warn">Audio is not available on this device, so read this instead.</p><div class="q-passage" data-no-i18n>${esc(item.au)}</div>`;
-    else extra = `<div class="lx-listen" data-no-i18n data-script="${esc(item.au)}"><div class="lx-audio"><button class="btn btn-gold lx-play" type="button" data-rate="0.92">&#9654; Listen</button><button class="btn btn-line-dark lx-play" type="button" data-rate="0.72">Slower</button></div><p class="lx-note">You can listen as many times as you like.</p></div>`;
+    else extra = `<div class="lx-listen" data-script="${esc(item.au)}"><div class="lx-audio"><button class="btn btn-gold lx-play" type="button" data-rate="0.92">&#9654; Listen</button><button class="btn btn-line-dark lx-play" type="button" data-rate="0.72">Slower</button></div><p class="lx-note">You can listen as many times as you like.</p></div>`;
   }
   testWrap.innerHTML = `
     <div class="test-progress">Question ${qIndex+1} of ${shuffledQuestions.length}</div>
@@ -3317,6 +3374,23 @@ function renderTest(){
       renderTest();
     });
   });
+}
+
+function refreshTestVoiceStatus(){
+  const section = document.getElementById('test');
+  if(qIndex !== -1 || !section || !section.classList.contains('active')) return;
+  const focusedId = testWrap.contains(document.activeElement) ? document.activeElement.id : '';
+  renderTest();
+  if(focusedId){
+    const replacement = document.getElementById(focusedId);
+    if(replacement) replacement.focus({preventScroll:true});
+  }
+}
+if(TTS_OK){
+  try{
+    if(typeof speechSynthesis.addEventListener === 'function') speechSynthesis.addEventListener('voiceschanged', refreshTestVoiceStatus);
+    else speechSynthesis.onvoiceschanged = refreshTestVoiceStatus;
+  }catch(e){}
 }
 
 /* ---------------- TEXTBOOKS (English for IT) ---------------- */
@@ -3430,7 +3504,6 @@ async function loadUnit(grade, unitNum){
 function showBookOverlay(){ lastFocus = document.activeElement; bookOverlay.classList.add('open'); bookOverlay.scrollTop = 0; document.getElementById('toTop').classList.remove('show'); }
 function closeBookOverlay(){ bookOverlay.classList.remove('open'); posKey = null; if(lastFocus && lastFocus.focus){ try{ lastFocus.focus({preventScroll:true}); }catch(e){} } if(typeof renderBooksView==='function' && booksIndex && currentBook) renderBooksView(); if(typeof renderClubManual==='function' && document.getElementById('clubs').classList.contains('active')) renderClubManual(); }
 bookOverlay.addEventListener('click', e=>{ if(e.target===bookOverlay) closeBookOverlay(); });
-document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeBookOverlay(); } });
 
 function bookShell(inner, backTo){
   bookDetail.innerHTML = `<button class="back-btn" id="bookBack" type="button">← Back to ${backTo || 'units'}</button>` + inner;
@@ -3641,17 +3714,19 @@ function overallFromAnswers(items){
   const crit = {volume:[], lex:[], gram:[], coh:[], flu:[]};
   let totalWords = 0, notEn = 0;
   items.forEach((it,i)=>{
-    const w = i+1;
     const r = scoreAnswer(it.text, it.q, (spk.mode==='voice' && !it.edited) ? it.sec : 0);
     it.res = r;
-    pts += r.total * w; max += w;
-    totalWords += r.words;
     if(r.notEnglish) notEn++;
+    // Keep skipped and non-English answers visible, but out of the estimate.
+    if(!r.words || r.notEnglish) return;
+    totalWords += r.words;
+    const w = i+1;
+    pts += r.total * w; max += w;
     ['volume','lex','gram','coh'].forEach(k=>crit[k].push(r.c[k]));
     if(r.c.flu !== null) crit.flu.push(r.c.flu);
   });
   const avg = a => a.length ? a.reduce((x,y)=>x+y,0)/a.length : null;
-  return {pct: Math.round((pts/max)*100), crit:{volume:avg(crit.volume), lex:avg(crit.lex), gram:avg(crit.gram), coh:avg(crit.coh), flu:avg(crit.flu)}, totalWords, notEn};
+  return {pct: max ? Math.round((pts/max)*100) : 0, crit:{volume:avg(crit.volume), lex:avg(crit.lex), gram:avg(crit.gram), coh:avg(crit.coh), flu:avg(crit.flu)}, totalWords, notEn, scored:crit.volume.length};
 }
 
 function spkStop(){
@@ -3812,15 +3887,15 @@ function renderSpeakingResult(){
   const o = overallFromAnswers(spk.items);
   let lvl = spkBand(o.pct);
   const edited = voice ? spk.items.filter(it=>it.edited && it.text).length : 0;
-  if(o.totalWords >= 20){
+  if(o.scored >= 3 && o.totalWords >= 20){
     if(voice) PG.d.speaking = {code:lvl.code, name:lvl.name, t:Date.now(), mode:'voice'};
     else PG.d.writing = {code:lvl.code, name:lvl.name, t:Date.now()};
     PG.save(); renderContinue();
   }
   let warn = '';
-  if(o.totalWords < 20){
+  if(o.scored < 3 || o.totalWords < 20){
     lvl = spkBand(5);
-    warn = '<p class="spk-warn">There were too few answers, so the estimate came out at the minimum. Try again and give fuller answers.</p>';
+    warn = '<p class="spk-warn">There were too few scored answers, so the estimate is not reliable and is shown at the minimum. Answer at least three questions in English and try again.</p>';
   }else if(o.notEn >= 2){
     warn = '<p class="spk-warn">Some answers were not in English. Such answers are not scored.</p>';
   }
